@@ -1,0 +1,10 @@
+services:
+  postgres:
+    container_name: postgres-spring-boot-full-stack
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=myproducts'
+      - 'POSTGRES_PASSWORD=secret'
+      - 'POSTGRES_USER=myuser'
+    ports:
+      - '5432'
