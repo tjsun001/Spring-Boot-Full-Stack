@@ -6,4 +6,7 @@ import java.util.UUID;
 
 public interface ProductRepository
         extends JpaRepository<Product, UUID> {
+    Product getProductsById(UUID id);
+
+    Product findProductById(UUID id);
 }
