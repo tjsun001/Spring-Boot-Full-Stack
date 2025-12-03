@@ -1,9 +1,7 @@
 package com.thurman.porfolio.springbootfullstack.product;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,11 +15,24 @@ public class ProductController {
         this.productService = productService;
     }
 @GetMapping
-    public List<Product> getAllProducts() {
+    public List<ProductResponse> getAllProducts() {
         return productService.getAllProducts();
     }
     @GetMapping("{id}")
-    public Product getProductById(@PathVariable("id") UUID id) {
+    public ProductResponse getProductById(@PathVariable("id") UUID id) {
         return productService.getProductById(id);
+    }
+@DeleteMapping ("{id}")
+    public void deleteProductById(@PathVariable("id") UUID id) {
+        productService.deleteProductById(id);
+    }
+
+@PostMapping
+    public UUID saveProduct(@RequestBody @Valid NewProductRequest productRequest) {
+   return productService.saveNewProduct(productRequest);
+    }
+@PutMapping("{id}")
+    public UUID updateProduct(@PathVariable("id") UUID id, @RequestBody @Valid UpdateProductRequest productRequest) {
+   return productService.updateProduct(id,productRequest);
     }
 }

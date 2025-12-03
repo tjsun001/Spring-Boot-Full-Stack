@@ -28,6 +28,7 @@ public class SpringBootFullStackApplication {
             product.setDescription("Macbook Pro M4");
             product.setPrice(new BigDecimal(3000));
             product.setStockLevel(100);
+            product.setImageUrl("https://www.google.com");
             product.setId(UUID.fromString(
                     "0B1C82C8-F003-415D-AFA6-A41FEC41A62E")
             );

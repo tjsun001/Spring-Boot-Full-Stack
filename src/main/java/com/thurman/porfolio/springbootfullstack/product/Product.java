@@ -17,6 +17,25 @@ import java.util.UUID;
         name = "product"
 )
 public class Product {
+
+    public Product(UUID id
+            , String name
+            , String description
+            , BigDecimal price
+            , String imageUrl
+            , Integer stockLevel) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.imageUrl = imageUrl;
+        this.stockLevel = stockLevel;
+    }
+
+    public Product() {
+
+    }
+
     @PrePersist
     public void prePersist() {
         if(this.id==null) {
@@ -36,6 +55,7 @@ public class Product {
     @Column(nullable = false,length = 50)
     private String name;
 
+    @Column (length =500)
     private String description;
 
     @Column(nullable = false, precision = 10, scale = 2)
