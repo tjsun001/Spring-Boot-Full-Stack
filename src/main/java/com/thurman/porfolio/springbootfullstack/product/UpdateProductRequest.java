@@ -19,7 +19,8 @@ public record UpdateProductRequest(
                 message = "Price must be > 0")
         BigDecimal price,
         String imageUrl,
-        Integer stockLevel
+        Integer stockLevel,
+        Boolean isPublished
 ) {
     @Override
     public String name() {
@@ -54,17 +55,32 @@ public record UpdateProductRequest(
     public String imageUrl() {
         return imageUrl;
     }
+    @Override
+    public Boolean isPublished() {
+        return isPublished;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         UpdateProductRequest that = (UpdateProductRequest) o;
-        return Objects.equals(name(), that.name()) && Objects.equals(imageUrl(), that.imageUrl()) && Objects.equals(price(), that.price()) && Objects.equals(description(), that.description()) && Objects.equals(stockLevel(), that.stockLevel());
+        return Objects.equals(name(), that.name()) &&
+                Objects.equals(imageUrl(), that.imageUrl()) &&
+                Objects.equals(price(), that.price()) &&
+                Objects.equals(description(), that.description())
+                && Objects.equals(stockLevel(), that.stockLevel())
+                && Objects.equals(isPublished(), that.isPublished());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name(), description(), price(), stockLevel(), imageUrl());
+        return Objects.hash(name(),
+                description(),
+                price(),
+                stockLevel(),
+                imageUrl(),
+                isPublished()
+        );
     }
 }
 

@@ -61,7 +61,7 @@ public class Product {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
-    @Column(length = 50)
+    @Column(length = 200)
     private String imageUrl;
 
     @Column(nullable = false)
@@ -70,10 +70,12 @@ public class Product {
     @Column(nullable = false,updatable = false)
     private Instant createdAt;
 
-    @Column(nullable = false,updatable = false)
+    @Column(updatable = false)
     private Instant updatedAt;
 
     private Instant deletedAt;
+
+    private Boolean isPublished = true;
 
     @Override
     public boolean equals(Object o) {
