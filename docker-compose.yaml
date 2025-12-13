@@ -1,0 +1,40 @@
+services:
+  product-service:
+    container_name: product
+#    image: tjsun0001/product-service:jibMaven
+    build:
+      context: .
+      dockerfile: Dockerfile
+#      platforms:
+#        - "linux/amd64"
+#        - "linux/arm64"
+#    image: tjsun0001/product-service:jibMaven
+#    platform: linux/arm64/v8
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/jfs
+      SPRING_DATASOURCE_USERNAME: myuser
+      SPRING_DATASOURCE_PASSWORD: secret
+    ports:
+      - "8050:5050"
+    networks:
+      - thurman
+  db:
+    container_name: jfs-postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: jfs
+    ports:
+      - "5332:5432"
+    restart: unless-stopped
+    volumes:
+      - db:/data/postgres
+    networks:
+        - thurman
+networks:
+  thurman:
+    driver: bridge
+volumes:
+  db:
+
