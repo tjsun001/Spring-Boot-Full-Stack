@@ -11,7 +11,7 @@
     <groupId>com.thurman.porfolio</groupId>
     <artifactId>Spring-Boot-Full-Stack</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>Spring-Boot-Full-Stack</name>
     <description>Spring-Boot-Full-Stack</description>
     <url/>
@@ -29,6 +29,10 @@
     </scm>
     <properties>
         <java.version>17</java.version>
+
+        <docker.username>tjsun0001</docker.username>
+        <docker.image.name>product-service</docker.image.name>
+        <docker.image.tag/>
 <!--        <spring-ai.version>1.0.3</spring-ai.version>-->
     </properties>
     <dependencies>
@@ -58,29 +62,30 @@
 <!--            <artifactId>spring-ai-starter-model-azure-openai</artifactId>-->
 <!--        </dependency>-->
 
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-devtools</artifactId>-->
-<!--            <scope>runtime</scope>-->
-<!--            <optional>true</optional>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-docker-compose</artifactId>
+            <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-docker-compose</artifactId>-->
+<!--            <scope>runtime</scope>-->
+<!--            <optional>true</optional>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-spring-boot-docker-compose</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.ai</groupId>-->
+<!--            <artifactId>spring-ai-spring-boot-docker-compose</artifactId>-->
+<!--            <version>1.1.0</version>-->
+<!--            <scope>runtime</scope>-->
+<!--            <optional>true</optional>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
@@ -91,11 +96,11 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-tomcat</artifactId>-->
+<!--&lt;!&ndash;            <scope>provided</scope>&ndash;&gt;-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -119,10 +124,12 @@
     </dependencyManagement>
 
     <build>
+        <finalName>product-service</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.1</version>
                 <configuration>
                     <annotationProcessorPaths>
                         <path>
@@ -146,6 +153,33 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <configuration>
+                    <from>
+                        <image>eclipse-temurin:21-jre</image>
+                        <platforms>
+                            <platrom>
+                                <architecture>amd64</architecture>
+                                <os>linux</os>
+                            </platrom>
+                            <platrom>
+                                <architecture>arm64</architecture>
+                                <os> linux</os>
+                            </platrom>
+                        </platforms>
+                    </from>
+                    <to>
+                        <image>docker.io/${docker.username}/${docker.image.name}:${docker.image.tag}</image>
+<!--                        <image>product-service:1</image>-->
+                        <tags>
+                            <tag>latest</tag>
+                        </tags>
+                    </to>
                 </configuration>
             </plugin>
         </plugins>
