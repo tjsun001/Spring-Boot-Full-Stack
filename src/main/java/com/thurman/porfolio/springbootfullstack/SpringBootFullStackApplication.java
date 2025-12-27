@@ -24,7 +24,7 @@ public class SpringBootFullStackApplication {
             ProductRepository productRepository) {
         return args -> {
             Product product = new Product();
-            product.setName("Macbook Pro");
+            product.setName("MacbookPro");
             product.setDescription("Macbook Pro M4");
             product.setPrice(new BigDecimal(3000));
             product.setStockLevel(100);
